@@ -1,70 +1,106 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// React Element ->
-/*
+/**
+ * 
+ * Header
+ * - Logo
+ * - Na Items
+ * 
+ * Body
+ * - Search
+ * - Restaurant Card Container (containing Restaurant Cards)
+ *   - Restaurant Card
+ *     - Image of Restaurant of food
+ *     - Name of Restaurant
+ *     - Start Rating of Restaurant
+ *     - Cuisines
+ *     - Delivery Time
+ * 
+ * Footer
+ * - Copyright
+ * - Links
+ * - Address
+ * - Contact
+ * 
+ */
 
-React element is similar to the dom element. At the end react element is an object and when we render this it becomes HTML element.
 
+// header component
+const Header = () => {
+    return (
+        <div className="header">
+            <div className="logo-container">
+                <img className="logo" src="https://img.freepik.com/premium-vector/food-ordering-app-logo-with-points-fork-shapes-center_666184-195.jpg?semt=ais_hybrid&w=740&q=80" />
+            </div>
+
+            <div className="nav-items">
+                <ul>
+                    <li>Home</li>
+                    <li>About Us</li>
+                    <li>Contact Us</li>
+                </ul>
+            </div>
+
+        </div>
+    )
+}
+
+const RestaurantCard = (props) => {
+    return (
+        <div className="res-card">
+            <img 
+                className="res-logo" 
+                src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_600/FOOD_CATALOG/IMAGES/CMS/2025/12/5/0d089f35-4c88-48c4-ae02-becf147a544f_564d1b7c-6fd6-4508-a35e-0f889a12c7de.jpg" 
+            />
+            <h3>{props.resName}</h3>
+            <h4>{props.cuisine}</h4>
+            <h5>4.7 ⭐</h5>
+            <h5>35 - 40 Minute</h5>
+        </div>
+    )
+}
+
+/**
+ * Props => Porps are just normal arguments to the function. (Passing props to a functional components is just passing arguments to a function.)
+ * When we need to display data dynamically we pass it using props 
+ * 
 */
 
-// React Element using React 
-const heading = React.createElement(
-    "h1",
-    {id: "heading"},
-    "Hello React"
-);
+// body component
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search">
+                Search
+            </div>
 
-// JSX -> It is a syntax that is used to define React Elements
+            <div className="res-container">
+                {/* Restaurant Card */}
+                <RestaurantCard 
+                    resName="Guru Kripa Restaurant" 
+                    cuisine="Indian, South Indian Foods"
+                />
+                <RestaurantCard resName="KFC" cuisine="Burger, Fast Food"/>
+                <RestaurantCard resName="CSB" cuisine="Tea, Coffee"/>
 
-// We can do all the things without using JSX but JSX makes our work easier.
-// JSX is not HTML in JS. It is HTML like syntax, it only looks like HTML or XML but not HTML or XML inside JavaScript. 
+                {/* passing key to react components is a good practice which helps react to uniqly identify the new element and don't rerender all just render the new one. This is very important for optimization purpose. */}
+            </div>
+        </div>
+    )
+}
 
-// JSX => React.createElement (JS Object) => HTMLElement(on rendering)
-/* 
-    JSX is in the form which can't be interpreted by JS Enginer so when we define react element using JSX syntax
-    it uses Babel (Babel (a JS Compiler) is a JS transpiler which connvert the JSX into the form which can be understood by JS Engine) Parcel Manages or uses Babel to do this.
-    JSX => React.createElement => ReactElement(JS Object) => HTML Element (rener)
-    Behind the scenes JSX is converted to React Element
-*/
-const jsxHeading = <h1 className="head">Namaste React using JSX 🚀</h1>;
-
-// React Component ->
-/*
-There are two types of React Componenets
- 1. Class Based Components -> OLD Way to use React Component
- 2. Functional Components -> NEW way to use React Component
-
-React Functional Components are nothing but a function that returns some JSX Code.
-*/
-
-const HeadingComponent = () => {
-    return <h1>Namaste React using Functional Component</h1>;
-};
-
-// below are valid
-const HeadingComponent2 = () => <h1>Namaste React 2 using Functional Component</h1>;
-
-const HeadingComponent3 = () => {
-    return <h1>Namaste React 3 using Functional Component</h1>;
-};
-
-const Title = () => (
-    <h1 className="title">This is Title.</h1>
-);
-
-// Component Composition -> using a component inside another component
-const Heading = () => (
-    <div className="container">
-        <Title />
-        <h1 className="heading">
-            Hello React. This is Heading.
-        </h1>
-        <h2>{100 + 400}</h2>
-        {/* we can apply any piece of JS inside {} */}
-    </div> 
-);
+// root level component
+const AppLayout = () => {
+    return (
+        <div className="app">
+            {/* Header Component */}
+            <Header />
+            <Body />
+        </div>
+    )
+}
 
 // let's create root element
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Heading />);
+root.render(<AppLayout />);
